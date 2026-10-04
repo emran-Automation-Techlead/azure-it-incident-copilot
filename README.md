@@ -4,7 +4,7 @@
 
 ![python](https://img.shields.io/badge/python-3.11-blue) ![azure](https://img.shields.io/badge/Azure-OpenAI%20%7C%20AI%20Search-0078D4) ![license](https://img.shields.io/badge/license-MIT-green)
 
-> Demo video: _coming soon (link will be added here)._
+> **Demo video (4 min):** [Watch on YouTube](https://youtu.be/VAVasUHeNmY)
 
 ![Live app answering an AD replication question with INC-1003 citation](docs/screenshots/02-live-app-ad-incident.png)
 
