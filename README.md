@@ -4,7 +4,9 @@
 
 ![python](https://img.shields.io/badge/python-3.11-blue) ![azure](https://img.shields.io/badge/Azure-OpenAI%20%7C%20AI%20Search-0078D4) ![license](https://img.shields.io/badge/license-MIT-green)
 
-> Demo GIF / video: _add to `docs/screenshots/` and link here._
+> Demo video: _coming soon (link will be added here)._
+
+![Live app answering an AD replication question with INC-1003 citation](docs/screenshots/02-live-app-ad-incident.png)
 
 ## Overview
 A chat assistant that answers IT service-desk questions ("VPN drops every 15 minutes", "AD accounts missing on one DC") by retrieving similar past incidents and grounding the model's answer in them — with explicit incident IDs as citations.
@@ -75,6 +77,11 @@ Response: `{"answer": "...", "sources": [{"id": "INC-1001", "title": "..."}], "t
 
 Run the suite (needs live Azure resources): `pytest tests -q` → 14 tests (retrieval, source IDs, invalid input, out-of-domain, follow-up).
 
+## Screenshots
+| Azure resources (`rg-incident-copilot`) | Application Insights (8 requests, 0 failures, ~861 ms avg) |
+|---|---|
+| ![resources](docs/screenshots/01-resource-group.png) | ![insights](docs/screenshots/03-app-insights.png) |
+
 ## Hallucination Controls
 - Grounding system prompt; "no matching precedent found" is an explicit, allowed answer.
 - Out-of-domain → scope refusal, zero citations.
@@ -88,6 +95,9 @@ az containerapp create ... --secrets openai-key=... search-key=... \
   --env-vars AZURE_OPENAI_KEY=secretref:openai-key AZURE_SEARCH_KEY=secretref:search-key ...
 ```
 Keys are passed as Container Apps secrets; nothing sensitive is in the image, repo, or Dockerfile (`.env` is git- and docker-ignored). The container runs FastAPI (8000) and Streamlit (8501) together via `start.sh`; splitting them into two apps is the natural next step.
+
+### Deployment status
+Deployed to Azure Container Apps (single container: Streamlit + FastAPI), image in Azure Container Registry, API keys held as Container Apps secrets, telemetry in Application Insights. The public URL is intentionally not listed here to avoid uncontrolled model spend; the screenshots above are the evidence. Note: ACR Tasks were unavailable on this subscription, so the image was built locally with Docker and pushed.
 
 ## What I'd Build Next
 - Split frontend/backend into separate Container Apps
